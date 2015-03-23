@@ -1,0 +1,109 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="CodeGenerator.Utility" #>
+/*
+ * -------------------------------------------------------------------------------
+ * 版权信息：	奥鹏教育（open.com.cn）	版权所有	<#= DateTime.Now.Year #>
+ * 功能描述：	代码处成器生成
+ * 
+ * 创建人：　	代码生成
+ * 创建日期：	<#= DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") #>
+ * 创建说明：	
+ * 
+ * 修改人：　	
+ * 修改日期：	
+ * 修改说明：	
+ *    
+ * -------------------------------------------------------------------------------
+ */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using <#= Config.BusinessEntitiesClass #>;
+
+namespace <#= Config.IBusinessLogicClass #>
+{
+    public partial interface I<#= tableName #><#= Config.BusinessLogicSuffix #>
+    {
+
+        /// <summary>
+        /// <#=description#>-增加方法
+        /// </summary>
+        void Add(<#= tableName #> <#= StringHelper.TableNameToLower(tableName) #>);
+
+        /// <summary>
+        /// <#=description#>-删除方法
+        /// </summary>
+        void Remove(<#= StringHelper.GetKeyToCondition(fieldList) #>);
+
+        /// <summary>
+        /// <#=description#>-删除方法
+        /// </summary>
+        void Remove(Expression<Func<<#= tableName #>, bool>> condition);
+
+        /// <summary>
+        /// <#=description#>-修改方法
+        /// </summary>
+        void Save(<#= tableName #> <#= StringHelper.TableNameToLower(tableName) #>);
+
+        /// <summary>
+        /// <#=description#>-根据主键获取实体信息
+        /// </summary>
+        /// <returns></returns>
+		<#= tableName #> GetById(<#= StringHelper.GetKeyToCondition(fieldList) #>);
+
+		        /// <summary>
+        /// <#=description#>-根据查询条件获取实体信息
+        /// <param name="condition">查询条件</param>
+        /// </summary>
+        /// <returns></returns>
+        <#= tableName #> GetItemByQuery(Expression<Func<<#= tableName #>, bool>> condition);
+
+        /// <summary>
+        /// <#=description#>-根据条件查询是否存在
+        /// <param name="condition">查询条件</param>
+        /// </summary>
+        /// <returns></returns>
+        bool IsExists(Expression<Func<<#= tableName #>, bool>> condition);
+
+		/// <summary>
+        /// <#=description#>-根据查询条件获取总数
+        /// <param name="condition">查询条件</param>
+        /// </summary>
+        /// <returns></returns>
+        int GetCountByQuery(Expression<Func<<#= tableName #>, bool>> condition);
+
+        /// <summary>
+        /// <#=description#>-获取所有
+        /// </summary>
+        /// <returns></returns>
+        List<<#= tableName #>> GetAll();
+
+				/// <summary>
+        /// <#=description#>-分页查询
+        /// </summary>
+        /// <param name="startRowIndex">索引开始</param>
+        /// <param name="maximumRows">每页信息条数</param>
+        /// <param name="condition">查询条件</param>
+        /// <param name="totalRecords">总计录数</param>
+		/// <param name="orderBy">排序条件</param>
+        /// <param name="isDesc">是否倒序</param>
+        /// <returns></returns>
+		List<<#= tableName #>> GetPagedList(int startRowIndex, int maximumRows, Expression<Func<<#= tableName #>,bool>> condition, Expression<Func<<#= tableName #>, object>> orderBy, bool isDesc, out int totalRecords);
+
+				/// <summary>
+        /// <#=description#>-根据条件查询
+        /// </summary>
+        /// <param name="condition">条件</param>
+        /// <param name="orderBy">排序条件</param>
+        /// <param name="isDesc">是否倒序</param>
+        /// <returns></returns>
+        List<<#= tableName #>> GetListByQuery(Expression<Func<<#= tableName #>, bool>> condition, Expression<Func<<#= tableName #>, object>> orderBy, bool isDesc);
+
+    }
+}
