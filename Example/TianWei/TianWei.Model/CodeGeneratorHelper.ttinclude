@@ -1,0 +1,297 @@
+<#@ assembly name="System.Core"
+#><#@ assembly name="System.Data.Linq"
+#><#@ assembly name="EnvDTE"
+#><#@ assembly name="System.Xml"
+#><#@ assembly name="System.Xml.Linq"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.IO"
+#><#@ import namespace="System.Text"
+#><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
+#><#+
+// https://raw.github.com/damieng/DamienGKit
+// http://damieng.com/blog/2009/11/06/multiple-outputs-from-t4-made-easy-revisited
+class CodeGeneratorHelper
+{
+	public string DBContext
+	{
+		get
+		{
+			return "TWDBContext";
+		}
+	}
+
+	public string ConnectionString
+	{
+		get
+		{
+			return "server=192.168.31.237;database=TeacherTraing;uid=sa;pwd=abc@123;";	
+		}
+	}
+
+
+    [Serializable]
+    public class TableModel
+    {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+    }
+
+	[Serializable]
+    public class FieldModel
+    {
+        public string Name { get; set; }
+
+        public string Type { get; set; }
+
+        public int MaxLength { get; set; }
+
+        public int IsNullable { get; set; }
+
+        public int IsIdentity { get; set; }
+
+        public string Description { get; set; }
+
+        public int IsPk { get; set; }
+
+    }
+
+	public static CodeGeneratorHelper Create() {
+        return new CodeGeneratorHelper();
+    }
+
+		
+        public static List<TableModel> GetTableList()
+        {
+            List<TableModel> tableList = new List<TableModel>();
+
+           string Sql = @"SELECT 
+							  so.name,
+							  Convert( VARCHAR(10), ep.[value]) AS [description]
+						FROM 
+							  sysobjects so(NOLOCK)
+							  LEFT JOIN sys.extended_properties ep(NOLOCK) ON ep.major_id=so.id AND ep.minor_id=0
+						WHERE  
+							  so.[type]='U' AND so.name<>'sysdiagrams' 
+						ORDER BY 
+							  so.name";
+            SqlConnection conn = new SqlConnection(new CodeGeneratorHelper().ConnectionString);
+			conn.Open();
+			SqlCommand command = new SqlCommand(Sql,conn);
+			using(var dr = command.ExecuteReader())
+			{
+				while(dr.Read())
+				{
+					TableModel tableModel = new TableModel();
+					tableModel.Name = dr["name"].ToString();
+					tableModel.Description = dr["description"].ToString();
+					tableList.Add(tableModel);
+				}
+			}
+			conn.Close();
+            return tableList;
+        }
+
+        public static List<FieldModel> GetFieldList(string tableName)
+        {
+            List<FieldModel> fieldList = new List<FieldModel>();
+
+			string SqlFieldList = @"SELECT  
+                                            c.name,
+                                            t.name AS [type],
+                                            CONVERT(INT,c.length) AS maxLength,
+                                            c.isnullable AS isNullable,
+                                            (
+                                                SELECT COUNT(1) FROM sys.identity_columns ic(NOLOCK) WHERE ic.[object_id]=c.id AND ic.column_id=c.colid 
+                                            ) AS isIdentity,
+                                            (
+                                                SELECT VALUE FROM   sys.extended_properties ep(NOLOCK) WHERE  ep.major_id = c.id AND ep.minor_id=c.colid
+                                            ) AS [description],
+                                            [IsPk]=CASE WHEN EXISTS (SELECT 1 FROM sysobjects WHERE xtype='PK' and parent_obj=c.id and name IN (
+                                                SELECT name FROM sysindexes WHERE indid in(SELECT indid FROM sysindexkeys WHERE id = c.id AND colid=c.colid))) THEN 1 ELSE 0 END
+                                        FROM 
+                                            syscolumns c(NOLOCK)
+                                            INNER JOIN sys.tables ts(NOLOCK) ON ts.[object_id] = c.id
+                                            INNER JOIN sys.types t(NOLOCK) ON t.system_type_id=c.xtype
+                                            INNER JOIN systypes st(NOLOCK) ON st.name=t.name AND st.name<>'sysname'
+                                            INNER JOIN sysusers su(NOLOCK) ON st.uid=su.uid AND su.name='sys'
+                                            --INNER JOIN syscolumns s(NOLOCK) ON c.[object_id]=s.id
+                                        WHERE 
+                                            ts.name='{0}'
+                                        ORDER BY
+                                            c.id ASC";
+            string Sql = string.Format(SqlFieldList, tableName);
+			SqlConnection conn = new SqlConnection(new CodeGeneratorHelper().ConnectionString);
+			conn.Open();
+			SqlCommand command = new SqlCommand(Sql,conn);
+			using(var dr = command.ExecuteReader())
+			{
+				while(dr.Read())
+				{
+					FieldModel fieldModel = new FieldModel();
+					fieldModel.Name = dr["name"].ToString();
+					fieldModel.Type = dr["type"].ToString();
+					fieldModel.MaxLength = Convert.ToInt32(dr["MaxLength"]);
+					fieldModel.IsNullable = Convert.ToInt32(dr["IsNullable"]);
+					fieldModel.IsIdentity = Convert.ToInt32(dr["IsIdentity"]);
+					fieldModel.Description = dr["Description"].ToString();
+					fieldModel.IsPk = Convert.ToInt32(dr["IsPk"]);
+					fieldList.Add(fieldModel);
+				}
+			}
+			conn.Close();
+             
+            return fieldList;
+        }
+
+		public static string GetCSharpType(string sqlType)
+        {
+            return SqlServerToCSharp()[sqlType];
+        }
+
+		public static string TableNameToLower(string tableName)
+        {
+            string[] tableNameArr = tableName.Split('_');
+            if (tableNameArr.Length <= 1)
+            {
+                return tableName.ToLower();
+            }
+            else
+            {
+                return tableName.Replace(tableNameArr[0] + "_", tableNameArr[0].ToLower() + "_");
+            }
+        }
+
+        public static string GetKeyToCondition(List<CodeGeneratorHelper.FieldModel> fieldList)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (fieldList != null)
+            {
+                var _fieldList = fieldList.Where(o => o.IsPk == 1);
+                foreach (var item in _fieldList)
+                {
+                    stringBuilder.AppendFormat("{0} {1},", GetCSharpType(item.Type), TableNameToLower(item.Name));
+                }
+            }
+            return string.IsNullOrEmpty(stringBuilder.ToString()) ? string.Empty : stringBuilder.ToString().Substring(0, stringBuilder.ToString().Length - 1);
+        }
+
+        public static string GetKeyToFindConditon(List<CodeGeneratorHelper.FieldModel> fieldList)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (fieldList != null)
+            {
+                var _fieldList = fieldList.Where(o => o.IsPk == 1);
+                foreach (var item in _fieldList)
+                {
+                    stringBuilder.AppendFormat("{0},", TableNameToLower(item.Name));
+                }
+            }
+            return string.IsNullOrEmpty(stringBuilder.ToString()) ? string.Empty : stringBuilder.ToString().Substring(0, stringBuilder.ToString().Length - 1);
+        }
+
+        public static string GetIsNullString(CodeGeneratorHelper.FieldModel fieldModel)
+        {
+            string _type = GetCSharpType(fieldModel.Type).ToLower(); ;
+            if ((_type == "long" || _type == "datetime" || _type == "decimal" || _type == "double" || _type == "int" || _type == "float" || _type == "short" || _type == "uniqueidentifier") && fieldModel.IsNullable == 1)
+            {
+                return "?";
+            }
+            return "";
+        }
+
+        public static string GetKeyAndValue(List<CodeGeneratorHelper.FieldModel> fieldList, string tableName)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (fieldList != null)
+            {
+                var _fieldList = fieldList.Where(o => o.IsPk == 1);
+                foreach (var item in _fieldList)
+                {
+                    stringBuilder.AppendFormat("\"{0} = \" + {1}.{2} +\" ,\" + ", item.Name, TableNameToLower(tableName), item.Name);
+                }
+            }
+            return string.IsNullOrEmpty(stringBuilder.ToString()) ? string.Empty : stringBuilder.ToString().Substring(0, stringBuilder.ToString().Length - 8);
+        }
+
+        public static string StringMysqlToUpper(string value)
+        {
+            string[] valueArr = value.Split('_');
+            if (valueArr.Length <= 1)
+            {
+                if (value.Length <= 3)
+                {
+                    return value.ToUpper();
+                }
+                else
+                {
+                    return value.Substring(0, 1).ToUpper() + value.Substring(1, value.Length - 1);
+                }
+            }
+            for (int i = 0; i < valueArr.Length; i++)
+            {
+                if (i == 0)
+                {
+                    value = value.Replace(valueArr[i] + "_", valueArr[0].ToUpper() + "_");
+                }
+                else
+                {
+                    if (valueArr[i].Length <= 3)
+                    {
+                        value = value.Replace("_" + valueArr[i], "_" + valueArr[i].ToUpper());
+                    }
+                    else
+                    {
+                        value = value.Replace("_" + valueArr[i].Substring(0, 1), "_" + valueArr[i].Substring(0, 1).ToUpper());
+                    }
+                }
+            }
+            return value;
+        }
+
+		public static Dictionary<string, string> SqlServerToCSharp()
+        {
+            Dictionary<string, string> dics = new Dictionary<string, string>();
+            dics.Add("bigint", "long");
+            dics.Add("binary", "object");
+            dics.Add("bit", "bool");
+            dics.Add("char", "string");
+            dics.Add("datetime", "DateTime");
+            dics.Add("decimal", "decimal");
+            dics.Add("float", "double");
+            dics.Add("image", "byte[]");
+            dics.Add("int", "int");
+            dics.Add("money", "decimal");
+            dics.Add("nchar", "string");
+            dics.Add("ntext", "string");
+            dics.Add("numeric", "decimal");
+            dics.Add("nvarchar", "string");
+            dics.Add("real", "float");
+            dics.Add("smalldatetime", "DateTime");
+            dics.Add("smallint", "short");
+            dics.Add("smallmoney", "decimal");
+            dics.Add("text", "string");
+            dics.Add("timestamp", "byte[]");
+            dics.Add("tinyint", "byte");
+            dics.Add("uniqueidentifier", "Guid");
+            dics.Add("varbinary", "byte[]");
+            dics.Add("varchar", "string");
+            dics.Add("xml", "string");
+            dics.Add("sql_variant", "object");
+            return dics;
+        }
+
+		public static string GetFirstKeyName(List<FieldModel> fieldList)
+		{
+			if(fieldList.Any(o => o.IsPk == 1))
+			{
+				return fieldList.Where(o => o.IsPk == 1).FirstOrDefault().Name;
+			}
+			else
+			{
+				return String.Empty;			
+			}
+		}
+ 
+    } #>
