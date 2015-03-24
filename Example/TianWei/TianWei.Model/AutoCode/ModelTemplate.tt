@@ -12,19 +12,13 @@
 <#@include file="$(ProjectDir)\CodeGeneratorHelper.ttinclude"#> 
 
 <#		
-  
 		var manager = Manager.Create(Host, GenerationEnvironment);  
-
 		List<CodeGeneratorHelper.TableModel> tableList = CodeGeneratorHelper.GetTableList();
 		foreach(var tableModel in tableList)
 		{	
 			manager.StartNewFile(tableModel.Name +".cs");
-
 			List<CodeGeneratorHelper.FieldModel> fieldList = CodeGeneratorHelper.GetFieldList(tableModel.Name);
-
-		#>
-
-/*
+#>/*
  * -------------------------------------------------------------------------------
  * 版权信息：	韩天伟（hantianwei.cn）	版权所有	<#= DateTime.Now.ToString("yyyy") #>
  * 功能描述：	代码处成器生成
@@ -53,7 +47,7 @@ namespace TianWei.Model
     [Serializable]
 	public partial class <#=  tableModel.Name #>
 	{
-        #region 实体
+        #region <#=tableModel.Description#> 实体
 		<#
 	int i=0;
     foreach(var field in fieldList)
@@ -67,7 +61,7 @@ namespace TianWei.Model
 			if(field.IsPk==1)
 			{
 		#>
-[Key]
+        [Key]
 		[Column(Order = <#=i#>)]
 		<#
 			i=i+1;
@@ -77,12 +71,12 @@ namespace TianWei.Model
                 if(field.IsIdentity==1)
                 {
 		#>
-[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         <#
                 }
             }
         #>
-public <#= CodeGeneratorHelper.GetCSharpType(field.Type) #><#= CodeGeneratorHelper.GetIsNullString(field) #> <#= field.Name #> { get; set; }
+        public <#= CodeGeneratorHelper.GetCSharpType(field.Type) #><#= CodeGeneratorHelper.GetIsNullString(field) #> <#= field.Name #> { get; set; }
 		<# 
     }
 		#>

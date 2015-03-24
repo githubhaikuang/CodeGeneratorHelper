@@ -12,19 +12,14 @@
 <#@include file="$(ProjectDir)\CodeGeneratorHelper.ttinclude"#> 
 
 <#		
-  
 		var manager = Manager.Create(Host, GenerationEnvironment);  
 
 		List<CodeGeneratorHelper.TableModel> tableList = CodeGeneratorHelper.GetTableList();
 		foreach(var tableModel in tableList)
 		{	
 			manager.StartNewFile(tableModel.Name +"BLL.cs");
-
 			List<CodeGeneratorHelper.FieldModel> fieldList = CodeGeneratorHelper.GetFieldList(tableModel.Name);
-
-		#>
-
-/*
+#>/*
  * -------------------------------------------------------------------------------
  * 版权信息：	韩天伟（hantianwei.cn）	版权所有	<#= DateTime.Now.ToString("yyyy") #>
  * 功能描述：	代码处成器生成
@@ -94,7 +89,7 @@ namespace TianWei.BLL
             return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetById(<#= CodeGeneratorHelper.GetKeyToFindConditon(fieldList) #>);
         }
 
-		        /// <summary>
+		 /// <summary>
         /// <#=tableModel.Description#>-根据查询条件获取实体信息
         /// <param name="condition">查询条件</param>
         /// </summary>
@@ -133,7 +128,7 @@ namespace TianWei.BLL
             return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetAll();
         }
 
-				/// <summary>
+		/// <summary>
         /// <#=tableModel.Description#>-分页查询
         /// </summary>
         /// <param name="startRowIndex">索引开始</param>
@@ -148,7 +143,7 @@ namespace TianWei.BLL
 			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetPagedList(startRowIndex, maximumRows,condition, orderBy, isDesc, out totalRecords);
 		}
 
-				/// <summary>
+		/// <summary>
         /// <#=tableModel.Description#>-根据条件查询
         /// </summary>
         /// <param name="condition">条件</param>

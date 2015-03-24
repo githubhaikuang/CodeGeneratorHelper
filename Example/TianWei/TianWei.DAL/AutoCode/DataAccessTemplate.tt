@@ -12,19 +12,14 @@
 <#@include file="$(ProjectDir)\CodeGeneratorHelper.ttinclude"#> 
 
 <#		
-  
 		var manager = Manager.Create(Host, GenerationEnvironment);  
 		var codeGeneratorHelper = CodeGeneratorHelper.Create();
 		List<CodeGeneratorHelper.TableModel> tableList = CodeGeneratorHelper.GetTableList();
 		foreach(var tableModel in tableList)
 		{	
 			manager.StartNewFile(tableModel.Name +"DAL.cs");
-
 			List<CodeGeneratorHelper.FieldModel> fieldList = CodeGeneratorHelper.GetFieldList(tableModel.Name);
-
-		#>
-
-/*
+#>/*
  * -------------------------------------------------------------------------------
  * 版权信息：	韩天伟（hantianwei.cn）	版权所有	<#= DateTime.Now.ToString("yyyy") #>
  * 功能描述：	代码处成器生成
@@ -39,11 +34,6 @@
  *    
  * -------------------------------------------------------------------------------
  */
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
