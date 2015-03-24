@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0053A75A-94D2-4E75-B07F-D2E41F5752F1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TianWei.DAL</RootNamespace>
+    <AssemblyName>TianWei.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoCode\DataAccessTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TestTableDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_ExpertsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_ExpertSubjectsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_FunctionItemsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_ManagerDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_MessageDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_RoleDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_RolePermissionDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherBasicDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherCaseCurriculumDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherCaseFullTimeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherCaseTrainingSituationDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherLabourInformationDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherMoveDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherPostCategoryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherPostGradesDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_TeacherResignationDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_UserCenterDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_UserPermissionDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Account_UserRoleDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Basic_AdministrativeRegionsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Basic_AdministrativeUnitDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Basic_ClauseDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Basic_MakeLearningConditionDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Basic_OrgTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Basic_SchoolDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Basic_StructureCreditDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Basic_TrainingProvidersDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Certificate_BasicDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Credit_IndividualSpecialCreditsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Credit_RewardPunishmentDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Credit_SchoolBasedTrainingCreditDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_AdministrativeDutiesDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_AgencyNatureDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_AgencyQualificationDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_AppraisalDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_CertificateTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_ChooseSubjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_ContractSituationDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_CountryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_CourseAssessTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_CourseCategoryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_CourseTeachingMethodsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_CurriculumDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_DegreeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_EducationalBackgroundDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_ExpertCategoryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_ExpertPostDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_FiveInsurancePaymentsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_FreeNormalStudentDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_IDTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_LearningSegmentDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_MandarinLevelDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_NationDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_PilotProjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_PoliticallandscapeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_PortalDownloadTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_PortalNoticeTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_PortalPolicyFileTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_PostCategoryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_PostGradesDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_ProAuditItemsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_ProjectTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_RewardPunishmentDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_SchoolCategoryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_SchoolNatureDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_SchoolStageDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_SchoolStageRefSubjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_SexDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_SpecialPostDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_SpecialtyDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_SubjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TablesDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TeachersCategoryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TeachGradesDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TitleDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TrainingCategoryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TrainingFormsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TrainingLevelDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TrainingObjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_TrainingRangeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_UnPilotProjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Dic_YesNoDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Expert_BatchExpertDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Expert_ExpertAuditDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Expert_ExpertAuditItemsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Expert_TaskAssignmentDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Index_ArticleDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Index_DownloadDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Index_NoticeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Index_PolicyFileDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Index_SinglePageDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Info_NoticeAttachedDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Info_NoticeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Info_PortalColumnDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Info_PortalDownloadCategoryDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Info_PortalDownloadZoneDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Info_PortalPolicyDocumentDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Info_PortalPolicyNoticeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_PE_PublicityDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_PE_QuestionnaireDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_PE_QuestionnaireItemsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_PE_QuestionnaireObjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_PE_QuestionnaireOptionsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_PE_QuestionnaireRangeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_PE_QuestionnaireResultDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_PE_SelfAssessmentReportDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_BatchDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_BatchPlanDetailDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_BatchPlanManageDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_BatchSubjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_CourseResourcesDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_CPProDeclareDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_CPProSchoolStageSubjectDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_CPQuotaAllocationDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_CPQuotaAllocationPublishStateInfoDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_LearningAboutDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ObjectRangeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_PaymentAuditDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProAuditItemsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProConcreteAuditItemsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProCourseAssessTypeDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProCourseDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProCourseTeachMethodsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProDeclareAuditDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProDeclareAuditItemsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProDeclareDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProjectJudgingItemDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProProposalDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_ProResouceDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_SignUpAuditDetailDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_SignUpDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProManage_TrainingResultDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProPlan_PlanManageDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProPlan_ProjectJudgingItemDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_ProPlan_SubjectsDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Score_MakeLearningAppDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Score_MakeLearningAuditDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Score_MakeLearningCourseDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Score_TraineeScoreAuditDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCode\TT_Score_TraineeScoreDAL.cs">
+      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="DbContextTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbContextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TWDBContext.cs">
+      <DependentUpon>DbContextTemplate.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TianWei.Enums\TianWei.Enums.csproj">
+      <Project>{f9ab62c6-c6d1-4614-ac13-0a1963c3ee0d}</Project>
+      <Name>TianWei.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TianWei.Model\TianWei.Model.csproj">
+      <Project>{a4b01aa6-6238-4902-a174-665bd6afbba2}</Project>
+      <Name>TianWei.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TianWei.Utility\TianWei.Utility.csproj">
+      <Project>{a5fae355-29b8-46a2-9eb1-7dfaf1f8a551}</Project>
+      <Name>TianWei.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="AutoCode\DataAccessTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DataAccessTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="CodeGeneratorHelper.ttinclude" />
+    <None Include="DbContextTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DbContextTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="MultipleOutputHelper.ttinclude" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
