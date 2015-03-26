@@ -24,7 +24,7 @@ class CodeGeneratorHelper
 	{
 		get
 		{
-			return "server=192.168.31.237;database=TeacherTraing;uid=sa;pwd=abc@123;";
+			return "server=192.168.31.210;database=TeacherTraing;uid=sa;pwd=abc@123;";
 		}
 	}
 

@@ -117,9 +117,9 @@ namespace TianWei.DAL
         /// <#=tableModel.Description#>-根据主键获取实体信息
         /// </summary>
         /// <returns></returns>
-        public <#= tableModel.Name #> GetById(<#= CodeGeneratorHelper.GetKeyToCondition(fieldList) #>)
+        public <#= tableModel.Name #> GetById(<#= CodeGeneratorHelper.GetKeyToCondition(fieldList) #>, WriteRead writeRead = WriteRead.Read)
         {
-            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(WriteRead.Read))
+            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(writeRead))
             {
                 return context.<#= tableModel.Name #>.Find(<#= CodeGeneratorHelper.GetKeyToFindConditon(fieldList) #>);
             }
@@ -131,9 +131,9 @@ namespace TianWei.DAL
         /// <param name="condition">查询条件</param>
         /// </summary>
         /// <returns></returns>
-        public <#= tableModel.Name #> GetItemByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition)
+        public <#= tableModel.Name #> GetItemByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition, WriteRead writeRead = WriteRead.Read)
         {
-            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(WriteRead.Read))
+            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(writeRead))
             {
                 return context.<#= tableModel.Name #>.SingleOrDefault(condition);
             }
@@ -144,9 +144,9 @@ namespace TianWei.DAL
         /// <param name="condition">查询条件</param>
         /// </summary>
         /// <returns></returns>
-        public bool IsExists(Expression<Func<<#= tableModel.Name #>, bool>> condition)
+        public bool IsExists(Expression<Func<<#= tableModel.Name #>, bool>> condition, WriteRead writeRead = WriteRead.Read)
         {
-            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(WriteRead.Read))
+            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(writeRead))
             {
                 return context.<#= tableModel.Name #>.Any(condition);
             }
@@ -157,9 +157,9 @@ namespace TianWei.DAL
         /// <param name="condition">查询条件</param>
         /// </summary>
         /// <returns></returns>
-        public int GetCountByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition)
+        public int GetCountByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition, WriteRead writeRead = WriteRead.Read)
         {
-		    using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(WriteRead.Read))
+		    using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(writeRead))
             {
                 return context.<#= tableModel.Name #>.Where(condition).Count();
             }
@@ -169,10 +169,10 @@ namespace TianWei.DAL
         /// <#=tableModel.Description#>-获取所有
         /// </summary>
         /// <returns></returns>
-        public List<<#= tableModel.Name #>> GetAll()
+        public List<<#= tableModel.Name #>> GetAll(WriteRead writeRead = WriteRead.Read)
         {
             List<<#= tableModel.Name #>> <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>s = new List<<#= tableModel.Name #>>();
-            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(WriteRead.Read))
+            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(writeRead))
             {
                 <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>s = context.<#= tableModel.Name #>.ToList();
             }
@@ -189,10 +189,10 @@ namespace TianWei.DAL
 		/// <param name="orderBy">排序条件</param>
         /// <param name="isDesc">是否倒序</param>
         /// <returns></returns>
-		public List<<#= tableModel.Name #>> GetPagedList(int startRowIndex, int maximumRows, Expression<Func<<#= tableModel.Name #>,bool>> condition, Expression<Func<<#= tableModel.Name #>, object>> orderBy, bool isDesc, out int totalRecords)
+		public List<<#= tableModel.Name #>> GetPagedList(int startRowIndex, int maximumRows, Expression<Func<<#= tableModel.Name #>,bool>> condition, Expression<Func<<#= tableModel.Name #>, object>> orderBy, bool isDesc, out int totalRecords, WriteRead writeRead = WriteRead.Read)
         {
             List<<#= tableModel.Name #>> <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>s = new List<<#= tableModel.Name #>>();
-            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(WriteRead.Read))
+            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(writeRead))
             {
 				var _<#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>s = context.<#= tableModel.Name #>.Where<<#= tableModel.Name #>>(condition);
                 if (orderBy != null)
@@ -216,10 +216,10 @@ namespace TianWei.DAL
         /// <param name="orderBy">排序条件</param>
         /// <param name="isDesc">是否倒序</param>
         /// <returns></returns>
-        public List<<#= tableModel.Name #>> GetListByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition, Expression<Func<<#= tableModel.Name #>, object>> orderBy, bool isDesc)
+        public List<<#= tableModel.Name #>> GetListByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition, Expression<Func<<#= tableModel.Name #>, object>> orderBy, bool isDesc, WriteRead writeRead = WriteRead.Read)
         {
             List<<#= tableModel.Name #>> <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>s = new List<<#= tableModel.Name #>>();
-            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(WriteRead.Read))
+            using (<#=codeGeneratorHelper.DBContext#> context = new <#=codeGeneratorHelper.DBContext#>(writeRead))
             {
                 var _<#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>s = context.<#= tableModel.Name #>.Where<<#= tableModel.Name #>>(condition);
                 if (orderBy != null)

@@ -40,6 +40,7 @@ using System.Linq.Expressions;
 using System.Text;
 using TianWei.Model;
 using TianWei.DAL;
+using TianWei.Enums;
 
 namespace TianWei.BLL
 {
@@ -83,9 +84,9 @@ namespace TianWei.BLL
         /// <#=tableModel.Description#>-根据主键获取实体信息
         /// </summary>
         /// <returns></returns>
-		public <#= tableModel.Name #> GetById(<#= CodeGeneratorHelper.GetKeyToCondition(fieldList) #>)
+		public <#= tableModel.Name #> GetById(<#= CodeGeneratorHelper.GetKeyToCondition(fieldList) #>, WriteRead writeRead = WriteRead.Read)
         {
-            return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetById(<#= CodeGeneratorHelper.GetKeyToFindConditon(fieldList) #>);
+            return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetById(<#= CodeGeneratorHelper.GetKeyToFindConditon(fieldList) #>, writeRead);
         }
 
 		        /// <summary>
@@ -93,9 +94,9 @@ namespace TianWei.BLL
         /// <param name="condition">查询条件</param>
         /// </summary>
         /// <returns></returns>
-        public <#= tableModel.Name #> GetItemByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition)
+        public <#= tableModel.Name #> GetItemByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition, WriteRead writeRead = WriteRead.Read)
         {
-			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetItemByQuery(condition);
+			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetItemByQuery(condition, writeRead);
 		}
 
         /// <summary>
@@ -103,9 +104,9 @@ namespace TianWei.BLL
         /// <param name="condition">查询条件</param>
         /// </summary>
         /// <returns></returns>
-        public bool IsExists(Expression<Func<<#= tableModel.Name #>, bool>> condition)
+        public bool IsExists(Expression<Func<<#= tableModel.Name #>, bool>> condition, WriteRead writeRead = WriteRead.Read)
         {
-            return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.IsExists(condition);
+            return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.IsExists(condition, writeRead);
         }
 
 		/// <summary>
@@ -113,18 +114,18 @@ namespace TianWei.BLL
         /// <param name="condition">查询条件</param>
         /// </summary>
         /// <returns></returns>
-        public int GetCountByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition)
+        public int GetCountByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition, WriteRead writeRead = WriteRead.Read)
         {
-			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetCountByQuery(condition);
+			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetCountByQuery(condition, writeRead);
 		}
 
         /// <summary>
         /// <#=tableModel.Description#>-获取所有
         /// </summary>
         /// <returns></returns>
-        public List<<#= tableModel.Name #>> GetAll()
+        public List<<#= tableModel.Name #>> GetAll(WriteRead writeRead = WriteRead.Read)
         {
-            return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetAll();
+            return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetAll(writeRead);
         }
 
 				/// <summary>
@@ -137,9 +138,9 @@ namespace TianWei.BLL
 		/// <param name="orderBy">排序条件</param>
         /// <param name="isDesc">是否倒序</param>
         /// <returns></returns>
-		public List<<#= tableModel.Name #>> GetPagedList(int startRowIndex, int maximumRows, Expression<Func<<#= tableModel.Name #>,bool>> condition, Expression<Func<<#= tableModel.Name #>, object>> orderBy, bool isDesc, out int totalRecords)
+		public List<<#= tableModel.Name #>> GetPagedList(int startRowIndex, int maximumRows, Expression<Func<<#= tableModel.Name #>,bool>> condition, Expression<Func<<#= tableModel.Name #>, object>> orderBy, bool isDesc, out int totalRecords, WriteRead writeRead = WriteRead.Read)
         {
-			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetPagedList(startRowIndex, maximumRows,condition, orderBy, isDesc, out totalRecords);
+			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetPagedList(startRowIndex, maximumRows,condition, orderBy, isDesc, out totalRecords, writeRead);
 		}
 
 				/// <summary>
@@ -149,9 +150,9 @@ namespace TianWei.BLL
         /// <param name="orderBy">排序条件</param>
         /// <param name="isDesc">是否倒序</param>
         /// <returns></returns>
-        public List<<#= tableModel.Name #>> GetListByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition, Expression<Func<<#= tableModel.Name #>, object>> orderBy, bool isDesc)
+        public List<<#= tableModel.Name #>> GetListByQuery(Expression<Func<<#= tableModel.Name #>, bool>> condition, Expression<Func<<#= tableModel.Name #>, object>> orderBy, bool isDesc, WriteRead writeRead = WriteRead.Read)
         {
-			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetListByQuery(condition, orderBy, isDesc);
+			return <#= CodeGeneratorHelper.TableNameToLower(tableModel.Name) #>Dal.GetListByQuery(condition, orderBy, isDesc, writeRead);
 		}
 
     }
